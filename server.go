@@ -34,7 +34,8 @@ func handleRequest(accept net.Conn) {
 	}(accept)
 
 	buf := make([]byte, 1024*1024)
-	for n, err := accept.Read(buf); err == nil && n != -1; {
+
+	for n, err := accept.Read(buf); err == nil && n != -1; n, err = accept.Read(buf) {
 		fmt.Printf("Received data: %v", string(buf[:n]))
 	}
 
