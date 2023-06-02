@@ -37,6 +37,7 @@ func t18() {
 	}
 	reader := bufio.NewReader(open)
 	for {
+
 		rByte, err := reader.ReadBytes('\n')
 		if err != nil {
 			log.Println("read exit : ", err)
@@ -48,8 +49,53 @@ func t18() {
 
 }
 
+func t19() {
+	file, err := os.OpenFile("t.txt", os.O_WRONLY, 0666)
+	if err != nil {
+		log.Println("Error open: ", err)
+		return
+	}
+	writeBuffer := bufio.NewWriter(file)
+
+	writeBuffer.Write([]byte("hello world\n"))
+	writeBuffer.Flush()
+
+}
+
+func t20() {
+	listA := make([]int, 10)
+	listA[1] = 99
+	listB := listA[:]
+	listB[9] = 90
+	var listC []int
+	copy(listC, listB)
+	listC[2] = 88
+	fmt.Println(listA)
+	fmt.Println(listB)
+	fmt.Println(listC)
+}
+
+func t21() {
+	listA := make([]int, 10)
+	listA[1] = 99
+	listB := make([]int, len(listA))
+	copy(listB, listA)
+	listB[2] = 90
+	fmt.Println(listA)
+	fmt.Println(listB)
+
+	listC := append(listA)
+	listC[3] = 88
+	fmt.Println(listC)
+
+	fmt.Printf("listA len:%d ,cap:%d\n", len(listA), cap(listA))
+	fmt.Printf("listB len:%d ,cap:%d\n", len(listB), cap(listB))
+	fmt.Printf("listC len:%d ,cap:%d\n", len(listC), cap(listC))
+
+}
+
 func main() {
-	t18()
+	t21()
 	return
 	// 定义命令行参数并关联变量
 	name := flag.String("name", "张三", "你的名字")
